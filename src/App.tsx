@@ -13,6 +13,7 @@ import { TextPlugin } from 'gsap/TextPlugin';
 import Lenis from 'lenis';
 import { FeaturedProjects } from './components/FeaturedProjects';
 import { ValuesSection } from './components/ValuesSection';
+import { PortfolioGallery } from './components/PortfolioGallery';
 import { Testimonials } from './components/Testimonials';
 import { TeamSection } from './components/TeamSection';
 import { ContactForm } from './components/ContactForm';
@@ -746,16 +747,11 @@ export default function App() {
       <ValuesSection />
 
       {/* Portfolio Sections */}
-      <div id="portfolio-categories" className="bg-[#00B4D8] pb-16 md:pb-24" data-theme="dark">
-        {categories.map((category) => (
-          <PortfolioCategory 
-            key={category.id}
-            title={category.title}
-            subtitle={category.subtitle}
-            projects={category.projects}
-            onProjectClick={setSelectedProject}
-          />
-        ))}
+      <div id="portfolio-categories" className="bg-[#F8FAFC] pt-16 md:pt-24 pb-16 md:pb-24" data-theme="light">
+        <PortfolioGallery 
+          categories={categories}
+          onProjectClick={setSelectedProject}
+        />
       </div>
 
       {/* Testimonials Section */}
@@ -839,15 +835,15 @@ export default function App() {
             id="draggable-fab"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className={`flex items-center justify-center rounded-full font-sans font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all duration-500 ease-[0.22,1,0.36,1] cursor-grab active:cursor-grabbing ${(scrollY.get() < 400 ? (isButtonOverDark ? 'dark' : 'light') : buttonTheme) === 'dark' ? 'text-white border border-white hover:bg-white hover:text-[#00B4D8]' : 'text-[#00B4D8] border border-[#00B4D8] hover:bg-[#00B4D8] hover:text-white'} ${isScrolled && !isHovered ? 'px-0' : 'px-6'} min-w-[48px] md:min-w-[56px] h-[48px] md:h-[56px]`}
+            className={`flex items-center justify-center rounded-full font-sans font-bold text-[9px] md:text-[10px] uppercase tracking-widest transition-all duration-500 ease-[0.22,1,0.36,1] cursor-grab active:cursor-grabbing ${(scrollY.get() < 400 ? (isButtonOverDark ? 'dark' : 'light') : buttonTheme) === 'dark' ? 'text-white border border-white hover:bg-white hover:text-[#00B4D8]' : 'text-[#00B4D8] border border-[#00B4D8] hover:bg-[#00B4D8] hover:text-white'} ${isScrolled && !isHovered ? 'px-0' : 'px-5'} min-w-[40px] md:min-w-[48px] h-[40px] md:h-[48px]`}
           >
             <MessageSquare 
               className={`shrink-0 transition-all duration-500 ease-[0.22,1,0.36,1] ${
                 !isScrolled 
                   ? 'w-0 h-0 opacity-0 m-0' 
                   : isHovered 
-                    ? 'w-4 h-4 md:w-5 md:h-5 mr-2 opacity-100' 
-                    : 'w-5 h-5 md:w-6 md:h-6 opacity-100 m-0'
+                    ? 'w-3 h-3 md:w-4 md:h-4 mr-2 opacity-100' 
+                    : 'w-4 h-4 md:w-5 md:h-5 opacity-100 m-0'
               }`} 
             />
             <div 

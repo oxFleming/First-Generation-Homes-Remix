@@ -58,7 +58,7 @@ export const Testimonials = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative py-16 md:py-24 bg-white overflow-hidden"
+      className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-white overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-20">

@@ -72,7 +72,7 @@ export const FAQSection = () => {
   }, { scope: sectionRef, dependencies: [] });
 
   return (
-    <section id="faq" ref={sectionRef} className="relative py-24 bg-white text-[#083344] overflow-hidden" data-theme="light">
+    <section id="faq" ref={sectionRef} className="relative pt-32 pb-24 bg-white text-[#083344] overflow-hidden" data-theme="light">
       {/* Decorative SVG Path */}
       <div className="absolute inset-0 pointer-events-none z-0 flex justify-center items-center opacity-20">
         <svg width="100%" height="100%" viewBox="0 0 200 1000" preserveAspectRatio="none">

@@ -118,7 +118,7 @@ export function StoryCards() {
   return (
     <div ref={containerRef} className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center" data-theme="light">
       {/* Background Title */}
-      <div className="absolute top-12 md:top-24 w-full flex justify-center pointer-events-none z-0">
+      <div className="absolute top-24 md:top-32 w-full flex justify-center pointer-events-none z-0">
         <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif tracking-tight text-[#083344]/10">
           At First Generation Homes
         </h3>

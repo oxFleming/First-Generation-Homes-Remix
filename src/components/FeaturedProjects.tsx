@@ -264,9 +264,9 @@ export function FeaturedProjects() {
         </svg>
       </div>
 
-      <div className="w-full max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
         {/* Beige Box */}
-        <div className="bg-[#F8FAFC] border border-[#00B4D8]/20 relative w-full h-auto lg:h-[75vh] min-h-[500px] max-h-none lg:max-h-[800px] mx-auto p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 shadow-sm rounded-sm">
+        <div className="bg-[#F8FAFC] border border-[#00B4D8]/20 relative w-full h-auto lg:h-[80vh] min-h-[600px] max-h-none lg:max-h-[850px] mx-auto p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 shadow-sm rounded-sm">
           
           {/* Left: Project Display */}
           <div className="w-full lg:w-[65%] flex flex-col h-full relative">

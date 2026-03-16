@@ -99,7 +99,7 @@ export function ValuesSection() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto flex flex-col items-center mt-20">
+        <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto flex flex-col items-center mt-32">
           <h2 className="text-7xl md:text-8xl lg:text-[7rem] font-serif mb-8 tracking-tight">
             Our Values
           </h2>

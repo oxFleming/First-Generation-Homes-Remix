@@ -141,7 +141,7 @@ export const TeamSection = () => {
       </div>
 
       {/* Fixed Header */}
-      <div className="absolute top-6 md:top-12 left-6 md:left-12 lg:left-24 z-10 pointer-events-none">
+      <div className="absolute top-24 md:top-32 left-6 md:left-12 lg:left-24 z-10 pointer-events-none">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-4">
           Meet Our Team
         </h2>
@@ -149,7 +149,7 @@ export const TeamSection = () => {
       </div>
       
       {/* Horizontal Scroll Container */}
-      <div ref={scrollRef} className="flex h-full items-center pt-32 md:pt-16 w-max">
+      <div ref={scrollRef} className="flex h-full items-center pt-48 md:pt-32 w-max">
         {/* Empty padding block to push the first card to the right initially */}
         <div className="w-[10vw] md:w-[20vw] h-full flex-shrink-0" />
 

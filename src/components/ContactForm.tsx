@@ -66,7 +66,7 @@ export const ContactForm = () => {
   }, { scope: sectionRef, dependencies: [] });
 
   return (
-    <div ref={sectionRef} className="relative bg-white text-[#083344] min-h-[100dvh] w-full flex items-center pt-20 pb-10 px-6 md:px-12 lg:px-24 overflow-hidden">
+    <div ref={sectionRef} className="relative bg-white text-[#083344] min-h-[100dvh] w-full flex items-center pt-32 pb-10 px-6 md:px-12 lg:px-24 overflow-hidden">
       {/* Decorative SVG Path */}
       <div className="absolute inset-0 pointer-events-none z-0 flex justify-center items-center opacity-20">
         <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="none">
