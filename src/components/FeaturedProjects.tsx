@@ -244,7 +244,7 @@ export function FeaturedProjects() {
   }, { scope: sectionRef });
 
   return (
-    <div ref={sectionRef} className="bg-white text-[#083344] py-6 lg:py-12 relative overflow-hidden min-h-screen flex items-center">
+    <div ref={sectionRef} className="bg-white text-[#083344] py-12 lg:py-24 relative overflow-hidden flex items-center">
       {/* Decorative Path */}
       <div className="absolute top-1/2 left-0 w-full h-64 -translate-y-1/2 pointer-events-none z-0 opacity-20">
         <svg viewBox="0 0 1000 200" preserveAspectRatio="none" className="w-full h-full">
@@ -266,14 +266,14 @@ export function FeaturedProjects() {
 
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
         {/* Beige Box */}
-        <div className="bg-[#F8FAFC] border border-[#00B4D8]/20 relative w-full h-auto lg:h-[80vh] min-h-[600px] max-h-none lg:max-h-[850px] mx-auto p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 shadow-sm rounded-sm">
+        <div className="bg-[#F8FAFC] border border-[#00B4D8]/20 relative w-full h-auto lg:h-[70vh] min-h-[500px] max-h-none lg:max-h-[700px] mx-auto p-4 lg:p-6 flex flex-col lg:flex-row gap-4 lg:gap-6 shadow-sm rounded-sm">
           
           {/* Left: Project Display */}
           <div className="w-full lg:w-[65%] flex flex-col h-full relative">
             {/* Image Area */}
             <div 
               ref={imageContainerRef}
-              className="w-full h-[300px] md:h-[350px] lg:h-auto lg:flex-1 relative overflow-hidden shadow-xl bg-gray-200 mb-4 lg:mb-6 rounded-sm shrink-0 lg:shrink cursor-grab active:cursor-grabbing"
+              className="w-full h-[250px] md:h-[300px] lg:h-auto lg:flex-1 relative overflow-hidden shadow-xl bg-gray-200 mb-4 lg:mb-6 rounded-sm shrink-0 lg:shrink cursor-grab active:cursor-grabbing"
             >
               <AnimatePresence mode="wait">
                 <motion.img 
@@ -301,7 +301,7 @@ export function FeaturedProjects() {
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl leading-[1.1] font-serif mb-2 text-[#083344]">
+                    <h2 className="text-xl md:text-2xl lg:text-3xl leading-[1.1] font-serif mb-2 text-[#083344]">
                       {activeProject.titleLine1} {activeProject.titleLine2}
                     </h2>
                     
@@ -312,7 +312,7 @@ export function FeaturedProjects() {
                     </div>
                     
                     <p 
-                      className="text-[11px] md:text-xs tracking-widest uppercase font-mono max-w-md leading-relaxed text-[#083344]/80"
+                      className="text-[10px] md:text-xs tracking-widest uppercase font-mono max-w-md leading-relaxed text-[#083344]/80"
                       dangerouslySetInnerHTML={{ __html: activeProject.description.replace(/<br\/>/g, ' ') }}
                     />
                   </motion.div>
@@ -334,17 +334,17 @@ export function FeaturedProjects() {
           </div>
 
           {/* Right: Selection Menu */}
-          <div className="w-full lg:w-[35%] flex flex-col h-[400px] lg:h-full border-t lg:border-t-0 lg:border-l border-[#00B4D8]/20 pt-6 lg:pt-0 lg:pl-6">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#00B4D8]/10 shrink-0">
-              <h3 className="text-sm tracking-widest uppercase font-mono font-semibold text-[#083344]">Select Project</h3>
-              <span className="text-xs font-mono text-[#00B4D8]">{activeIndex + 1} / {projectList.length}</span>
+          <div className="w-full lg:w-[35%] flex flex-col h-[300px] lg:h-full border-t lg:border-t-0 lg:border-l border-[#00B4D8]/20 pt-4 lg:pt-0 lg:pl-4">
+            <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#00B4D8]/10 shrink-0">
+              <h3 className="text-xs tracking-widest uppercase font-mono font-semibold text-[#083344]">Select Project</h3>
+              <span className="text-[10px] font-mono text-[#00B4D8]">{activeIndex + 1} / {projectList.length}</span>
             </div>
             
             <div className="flex-1 overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#00B4D8]/20 hover:[&::-webkit-scrollbar-thumb]:bg-[#00B4D8]/40">
               {projectList.map((project, index) => (
                 <div 
                   key={index} 
-                  className={`group relative flex flex-col py-3 px-4 mb-1 border border-transparent hover:border-[#00B4D8]/20 transition-colors cursor-pointer rounded-sm ${activeIndex === index ? 'text-white' : 'text-[#083344] hover:bg-[#00B4D8]/5'}`}
+                  className={`group relative flex flex-col py-2 px-3 mb-1 border border-transparent hover:border-[#00B4D8]/20 transition-colors cursor-pointer rounded-sm ${activeIndex === index ? 'text-white' : 'text-[#083344] hover:bg-[#00B4D8]/5'}`}
                   onClick={() => {
                     setActiveIndex(index);
                     setPauseKey(prev => prev + 1);
@@ -358,13 +358,13 @@ export function FeaturedProjects() {
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
-                  <div className="relative z-10 flex justify-between items-center mb-1">
-                    <div className="font-serif text-lg md:text-xl">{project.name}</div>
-                    <ArrowUpRight className={`w-4 h-4 transition-opacity duration-300 ${activeIndex === index ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'}`} />
+                  <div className="relative z-10 flex justify-between items-center mb-0.5">
+                    <div className="font-serif text-base md:text-lg">{project.name}</div>
+                    <ArrowUpRight className={`w-3 h-3 transition-opacity duration-300 ${activeIndex === index ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'}`} />
                   </div>
                   <div className="relative z-10 flex justify-between items-center">
-                    <div className={`font-mono text-[9px] tracking-widest uppercase transition-opacity duration-300 ${activeIndex === index ? 'opacity-80' : 'opacity-50'}`}>{project.location}</div>
-                    <div className={`font-mono text-[9px] tracking-widest uppercase transition-opacity duration-300 ${activeIndex === index ? 'opacity-80' : 'opacity-50'}`}>{project.year}</div>
+                    <div className={`font-mono text-[8px] tracking-widest uppercase transition-opacity duration-300 ${activeIndex === index ? 'opacity-80' : 'opacity-50'}`}>{project.location}</div>
+                    <div className={`font-mono text-[8px] tracking-widest uppercase transition-opacity duration-300 ${activeIndex === index ? 'opacity-80' : 'opacity-50'}`}>{project.year}</div>
                   </div>
                 </div>
               ))}
