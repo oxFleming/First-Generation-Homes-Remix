@@ -94,7 +94,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
     >
       <div 
         ref={containerRef}
-        className="relative w-full max-w-6xl h-[85vh] bg-white text-[#083344] rounded-2xl overflow-hidden shadow-2xl flex flex-col lg:flex-row border border-[#00B4D8]/20 translate-y-8 scale-95 opacity-0"
+        className="relative w-full max-w-6xl h-[90vh] min-h-[400px] bg-white text-[#083344] rounded-2xl overflow-hidden shadow-2xl flex flex-col lg:flex-row border border-[#00B4D8]/20 translate-y-8 scale-95 opacity-0 will-change-transform"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Left: Sticky Content */}
@@ -140,7 +140,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           <div className="flex flex-col p-4 md:p-8 gap-4 md:gap-8">
             {[project.image, ...genericGallery].map((img, idx) => (
               <div key={idx} className="modal-image-container w-full aspect-[4/3] md:aspect-[16/9] relative overflow-hidden bg-black/5 rounded-lg border border-[#00B4D8]/10">
-                <img src={img} alt={`${project.name} - Gallery Image ${idx + 1}`} referrerPolicy="no-referrer" className="modal-image w-full h-full object-cover" />
+                <img src={img} alt={`${project.name} - Gallery Image ${idx + 1}`} referrerPolicy="no-referrer" loading="lazy" className="modal-image w-full h-full object-cover" />
               </div>
             ))}
           </div>
@@ -218,8 +218,8 @@ export function FeaturedProjects() {
       pinSpacing: true,
       snap: {
         snapTo: [0, 1], // Snap to the start or end of the pin
-        duration: { min: 0.2, max: 0.5 },
-        ease: "power1.inOut"
+        duration: { min: 0.6, max: 1.2 }, // Longer duration for buttery smooth snap
+        ease: "sine.inOut" // Buttery easing
       }
     });
 
@@ -254,14 +254,14 @@ export function FeaturedProjects() {
           trigger: sectionRef.current,
           start: "top bottom",
           end: "bottom top",
-          scrub: 1
+          scrub: 1.2 // smooth scrub
         }
       });
     }
   }, { scope: sectionRef });
 
   return (
-    <div ref={sectionRef} className="bg-white text-[#083344] h-screen w-full relative overflow-hidden flex items-center pt-24 pb-8">
+    <div ref={sectionRef} className="bg-white text-[#083344] min-h-[100svh] w-full relative overflow-hidden flex items-center py-24">
       {/* Decorative Path */}
       <div className="absolute top-1/2 left-0 w-full h-64 -translate-y-1/2 pointer-events-none z-0 opacity-20">
         <svg viewBox="0 0 1000 200" preserveAspectRatio="none" className="w-full h-full">
@@ -301,7 +301,7 @@ export function FeaturedProjects() {
                   transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                   src={activeProject.image} 
                   alt={activeProject.name} 
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover will-change-transform"
                   referrerPolicy="no-referrer"
                 />
               </AnimatePresence>

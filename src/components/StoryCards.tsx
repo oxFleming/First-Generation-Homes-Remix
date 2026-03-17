@@ -40,9 +40,9 @@ export function StoryCards() {
     // The active card is straight and centered in its column
     const pos0 = { xPercent: 0, yPercent: 0, rotation: 0, scale: 1, opacity: 1, zIndex: 30 };
     // The next card is cascaded down and to the left
-    const pos1 = { xPercent: isMobile ? -15 : -35, yPercent: isMobile ? 15 : 25, rotation: -12, scale: 0.95, opacity: 1, zIndex: 20 };
+    const pos1 = { xPercent: isMobile ? -15 : -35, yPercent: isMobile ? 10 : 25, rotation: -12, scale: 0.95, opacity: 1, zIndex: 20 };
     // The last card is cascaded further down and left
-    const pos2 = { xPercent: isMobile ? -30 : -70, yPercent: isMobile ? 30 : 50, rotation: -24, scale: 0.9, opacity: 1, zIndex: 10 };
+    const pos2 = { xPercent: isMobile ? -30 : -70, yPercent: isMobile ? 20 : 50, rotation: -24, scale: 0.9, opacity: 1, zIndex: 10 };
     // The position cards fly to when they are done (up and right)
     const posOut = { xPercent: 20, yPercent: -40, rotation: 15, scale: 1.05, opacity: 0, zIndex: 40 };
 
@@ -60,12 +60,12 @@ export function StoryCards() {
         trigger: containerRef.current,
         start: "top top",
         end: "+=150%", // Reduced from 300% to 150% for much less scroll effort
-        scrub: 1.5, // Increased scrub for a smoother, "glossier" feel
+        scrub: 1.2, // Smooth scrub
         pin: true,
         snap: {
           snapTo: [0, 0.5, 1], // Snaps perfectly to the resting periods
-          duration: { min: 0.4, max: 0.8 }, // Slightly longer snap duration for glossiness
-          ease: "power3.inOut" // Smoother easing
+          duration: { min: 0.6, max: 1.2 }, // Longer snap duration for buttery glossiness
+          ease: "sine.inOut" // Buttery smooth easing
         }
       }
     });
@@ -96,20 +96,20 @@ export function StoryCards() {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="relative w-full h-screen bg-gradient-to-b from-[#e0f2fe] to-[#bae6fd] overflow-hidden flex items-center justify-center pt-20 md:pt-0" data-theme="light">
+    <div ref={containerRef} className="relative w-full min-h-[100svh] bg-gradient-to-b from-[#e0f2fe] to-[#bae6fd] overflow-hidden flex items-center justify-center py-20 md:py-0" data-theme="light">
       
       <div className="w-full max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 h-full items-center">
         
         {/* Cards Container (Left) */}
-        <div className="relative w-full h-[45vh] md:h-[70vh] flex items-center justify-center md:justify-end z-10">
+        <div className="relative w-full h-[40vh] min-h-[250px] md:h-[70vh] flex items-center justify-center md:justify-end z-10">
           {cardsData.map((card, i) => (
             <div 
               key={i}
               ref={el => cardsRef.current[i] = el}
-              className="absolute w-[55vw] sm:w-[45vw] md:w-[320px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] border-4 border-white will-change-transform bg-white"
+              className="absolute w-[45vw] sm:w-[35vw] md:w-[320px] max-h-[350px] md:max-h-none aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] border-4 border-white will-change-transform bg-white"
               style={{ transformOrigin: "center center" }}
             >
-              <img src={card.image} alt={card.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src={card.image} alt={card.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" />
               {/* Optional blue tint to match the reference image vibe while keeping the photo */}
               <div className="absolute inset-0 bg-[#00B4D8]/10 mix-blend-multiply pointer-events-none" />
             </div>
@@ -117,16 +117,16 @@ export function StoryCards() {
         </div>
 
         {/* Texts Container (Right) */}
-        <div className="relative w-full h-[30vh] md:h-[70vh] flex items-start md:items-center justify-center md:justify-start z-20">
-          <div className="relative w-full max-w-sm h-[150px] md:h-auto">
+        <div className="relative w-full h-[30vh] min-h-[150px] md:h-[70vh] flex items-start md:items-center justify-center md:justify-start z-20">
+          <div className="relative w-full max-w-sm h-full md:h-auto">
             {cardsData.map((card, i) => (
               <div 
                 key={i}
                 ref={el => textsRef.current[i] = el}
                 className="absolute top-0 left-0 w-full flex flex-col items-center md:items-start text-center md:text-left"
               >
-                <h3 className="text-xl md:text-2xl font-sans font-bold uppercase tracking-[0.15em] text-[#083344] mb-4 md:mb-6">{card.title}</h3>
-                <p className="text-sm md:text-base text-[#083344]/80 font-sans font-medium leading-[1.8]">{card.text}</p>
+                <h3 className="text-xl md:text-2xl font-sans font-bold uppercase tracking-[0.15em] text-[#083344] mb-2 md:mb-6">{card.title}</h3>
+                <p className="text-sm md:text-base text-[#083344]/80 font-sans font-medium leading-[1.6] md:leading-[1.8]">{card.text}</p>
               </div>
             ))}
           </div>

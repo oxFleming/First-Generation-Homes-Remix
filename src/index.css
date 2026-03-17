@@ -44,6 +44,9 @@ html, body {
   scrollbar-color: rgba(0, 180, 216, 0.5) transparent;
   overflow-x: hidden;
   width: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::-webkit-scrollbar {

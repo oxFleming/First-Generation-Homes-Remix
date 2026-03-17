@@ -209,8 +209,9 @@ function PortfolioCategory({ title, subtitle, projects, onProjectClick }: { key?
                       <img 
                         src={project.src} 
                         alt={project.title} 
-                        className="w-full h-full object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover/item:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover/item:scale-105 will-change-transform"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/item:opacity-100 transition-opacity duration-500 ease-[0.16,1,0.3,1] flex items-center justify-center">
                         <div className="w-8 h-8 bg-white text-black flex items-center justify-center transform translate-y-4 group-hover/item:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1]">
@@ -331,10 +332,12 @@ export default function App() {
   // Smooth scrolling with Lenis
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.05, // Smoother lerp
-      wheelMultiplier: 1,
-      touchMultiplier: 1.5,
+      lerp: 0.08, // Slightly higher lerp for more responsiveness but still smooth
+      wheelMultiplier: 0.8, // Softer wheel
+      touchMultiplier: 1.5, // Smoother touch
       smoothWheel: true,
+      duration: 1.5, // Add duration for buttery feel
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
     });
 
     setLenisInstance(lenis);
@@ -566,7 +569,7 @@ export default function App() {
   return (
     <div ref={mainRef} className="min-h-[150vh] bg-white font-sans overflow-x-hidden w-full">
       {/* Hero Section */}
-      <div id="home" ref={containerRef} className="relative w-full h-[85vh] bg-white text-white" data-theme="dark">
+      <div id="home" ref={containerRef} className="relative w-full min-h-[500px] h-[85vh] bg-white text-white" data-theme="dark">
         {/* Background Container */}
         <div 
           ref={bgContainerRef}
@@ -574,7 +577,7 @@ export default function App() {
         >
           {/* Background Images */}
           <motion.div 
-            className="absolute -inset-y-[20%] inset-x-0" 
+            className="absolute -inset-y-[20%] inset-x-0 will-change-transform" 
             style={{ perspective: '1000px', y: backgroundY }}
           >
             {!introFinished ? (
@@ -590,7 +593,7 @@ export default function App() {
                   key={`bg-${activeIndex}`}
                   src={heroImages[activeIndex]}
                   alt="Background"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover will-change-transform"
                   referrerPolicy="no-referrer"
                   initial={{ scale: 1.15, opacity: 0 }}
                   animate={{ scale: 1, opacity: 0.75 }}
@@ -614,7 +617,7 @@ export default function App() {
               {/* Stretched Title */}
               <h1 
                 ref={titleRef}
-                className="flex justify-between w-full text-[8vw] md:text-[5.5vw] lg:text-[6vw] leading-[0.8] font-medium uppercase tracking-tight mb-4"
+                className="flex justify-between w-full text-[5vw] sm:text-[4.5vw] md:text-[4vw] lg:text-[3.5vw] xl:text-[3.5vw] leading-[0.8] font-medium uppercase tracking-tight mb-4 whitespace-nowrap"
                 aria-label="First Generation Homes - Custom Residential Construction & Renovation"
               >
                 {'FIRST GENERATION HOMES'.split('').map((char, i) => (
@@ -807,7 +810,7 @@ export default function App() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-4xl max-h-[85vh] bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col cursor-default border border-[#00B4D8]/20"
+              className="relative w-full max-w-4xl max-h-[90vh] min-h-[400px] bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col cursor-default border border-[#00B4D8]/20 will-change-transform"
               onClick={(e) => e.stopPropagation()}
             >
               <button 
@@ -823,6 +826,7 @@ export default function App() {
                   alt={selectedProject.title} 
                   className="w-full h-full object-cover sm:object-contain"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
               </div>
               
@@ -844,7 +848,7 @@ export default function App() {
           exit={{ opacity: 0, transition: { duration: 0.3 } }}
           transition={{ duration: 0.5, delay: introFinished ? 0 : 1 }}
           style={{ transform: buttonTransform }}
-          className={`fixed bottom-8 left-8 z-[150] ${!introFinished ? 'pointer-events-none' : ''}`}
+          className={`fixed bottom-8 left-8 z-[150] will-change-transform ${!introFinished ? 'pointer-events-none' : ''}`}
         >
           <button
             id="draggable-fab"

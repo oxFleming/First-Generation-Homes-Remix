@@ -26,15 +26,6 @@ export const ContactForm = () => {
       { y: 0, opacity: 1, duration: 1.2, ease: 'power4.out', stagger: 0.15 }
     );
 
-    // Add scroll friction (pinning)
-    ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: 'top top',
-      end: '+=500', // Pins for 500px of scroll to create friction
-      pin: true,
-      pinSpacing: true,
-    });
-
     // Path Animation
     if (pathRef.current && dotRef.current) {
       const pathLength = pathRef.current.getTotalLength();
@@ -43,9 +34,9 @@ export const ContactForm = () => {
       const pathTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top top",
-          end: "+=500",
-          scrub: 1,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.2, // Smooth scrub
         }
       });
 

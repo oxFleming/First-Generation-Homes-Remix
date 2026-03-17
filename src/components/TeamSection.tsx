@@ -70,7 +70,7 @@ export const TeamSection = () => {
       scrollTrigger: {
         trigger: containerRef.current,
         pin: true,
-        scrub: 1,
+        scrub: 1.2, // Smooth scrub
         end: () => "+=" + scrollWidth,
         invalidateOnRefresh: true,
       }
@@ -86,7 +86,7 @@ export const TeamSection = () => {
           trigger: containerRef.current,
           start: "top top",
           end: () => "+=" + scrollWidth,
-          scrub: 1,
+          scrub: 1.2, // Smooth scrub
         }
       });
 
@@ -107,7 +107,7 @@ export const TeamSection = () => {
   }, { scope: containerRef, dependencies: [] });
 
   return (
-    <section ref={containerRef} className="relative h-[100dvh] bg-[#00B4D8] overflow-hidden flex items-center">
+    <section ref={containerRef} className="relative min-h-[100dvh] bg-[#00B4D8] overflow-hidden flex items-center py-24">
       {/* Decorative SVG Path */}
       <div className="absolute inset-0 pointer-events-none z-0 flex justify-center items-center opacity-30">
         <svg width="100%" height="100%" viewBox="0 0 1000 200" preserveAspectRatio="none">
@@ -164,8 +164,9 @@ export const TeamSection = () => {
                 <img 
                   src={member.image} 
                   alt={member.name} 
-                  className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all duration-1000 ease-[0.16,1,0.3,1] scale-105 group-hover:scale-100"
+                  className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all duration-1000 ease-[0.16,1,0.3,1] scale-105 group-hover:scale-100 will-change-[filter,transform]"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
               </div>
               <div className="w-full md:w-[55%] text-white flex flex-col justify-center">

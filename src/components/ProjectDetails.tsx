@@ -140,7 +140,7 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, onClose
                 'w-[85%] aspect-[4/3] ' + (idx % 2 === 0 ? 'self-end' : 'self-start')
               }`}
             >
-              <img src={src} alt={`${project.title} ${idx}`} className="absolute inset-0 w-full h-full object-cover" />
+              <img src={src} alt={`${project.title} ${idx}`} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
             </div>
           ))}
         </div>

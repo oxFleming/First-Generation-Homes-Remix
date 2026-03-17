@@ -42,12 +42,12 @@ export const Footer = () => {
       {/* Massive Text & Action Buttons */}
       <div className="flex flex-col items-center justify-center w-full mb-8 md:mb-12 mt-[15vh] md:mt-[20vh]">
         <div className="overflow-hidden w-full">
-          <h1 className="footer-title text-[clamp(2.5rem,9vw,10rem)] leading-[0.85] font-medium tracking-tight uppercase text-center w-full text-[#083344]">
+          <h1 className="footer-title text-[clamp(2rem,6.5vw,8rem)] leading-[0.85] font-medium tracking-tight uppercase text-center w-full text-[#083344] whitespace-nowrap">
             FIRST GENERATION
           </h1>
         </div>
         <div className="overflow-hidden w-full">
-          <h2 className="footer-title text-[clamp(1rem,3vw,3rem)] leading-none font-medium tracking-[0.3em] uppercase text-center mt-2 md:mt-4 mb-8 md:mb-10 text-[#00B4D8]">
+          <h2 className="footer-title text-[clamp(1rem,3vw,3rem)] leading-none font-medium tracking-[0.3em] uppercase text-center mt-2 md:mt-4 mb-8 md:mb-10 text-[#00B4D8] whitespace-nowrap">
             HOMES LLC
           </h2>
         </div>
