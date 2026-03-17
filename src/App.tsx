@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, useSpring, useMotionTemplate } from 'framer-motion';
-import { Plus, Minus, ArrowUpRight, X, CheckSquare, MessageSquare } from 'lucide-react';
+import { Plus, Minus, ArrowUpRight, X, CheckSquare, MessageSquare, Menu } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -237,6 +237,7 @@ export default function App() {
   const [navTheme, setNavTheme] = useState<'light' | 'dark'>('dark');
   const [buttonTheme, setButtonTheme] = useState<'light' | 'dark'>('dark');
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const mainRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -613,7 +614,7 @@ export default function App() {
               {/* Stretched Title */}
               <h1 
                 ref={titleRef}
-                className="flex justify-between w-full text-[5vw] md:text-[5.5vw] lg:text-[6vw] leading-[0.8] font-medium uppercase tracking-tight mb-4"
+                className="flex justify-between w-full text-[8vw] md:text-[5.5vw] lg:text-[6vw] leading-[0.8] font-medium uppercase tracking-tight mb-4"
                 aria-label="First Generation Homes - Custom Residential Construction & Renovation"
               >
                 {'FIRST GENERATION HOMES'.split('').map((char, i) => (
@@ -631,24 +632,38 @@ export default function App() {
             {/* Navigation Options */}
             <nav 
               ref={navRef}
-              className={`flex flex-wrap justify-between items-center w-full px-6 md:px-10 lg:px-12 gap-y-4 transition-all duration-500 ${introFinished ? 'opacity-100' : 'opacity-0'} z-[100] ${navTheme === 'dark' ? 'text-white' : 'text-black'}`}
+              className={`flex justify-between items-center w-full px-6 md:px-10 lg:px-12 transition-all duration-500 ${introFinished ? 'opacity-100' : 'opacity-0'} z-[100] ${navTheme === 'dark' ? 'text-white' : 'text-black'}`}
             >
-              {navItems.map((item, index) => (
-                <div 
-                  key={item.id}
-                  className="cursor-pointer flex items-center gap-2 group py-2"
-                  onMouseEnter={() => setActiveIndex(index % heroImages.length)}
-                  onClick={() => scrollToSection(item.id)}
-                >
-                  <div className="relative flex items-center justify-center w-5 h-5">
-                    <span className={`absolute inset-0 transition-transform duration-300 ease-out ${activeSection === item.id ? 'scale-100' : 'scale-0 group-hover:scale-100'} ${navTheme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-                    <span className={`relative font-light text-lg leading-none transition-all duration-300 ${activeSection === item.id ? 'opacity-100' : 'opacity-60 group-hover:opacity-100'} ${navTheme === 'dark' ? (activeSection === item.id ? 'text-black' : 'group-hover:text-black') : (activeSection === item.id ? 'text-white' : 'group-hover:text-white')}`}>+</span>
+              {/* Desktop Nav */}
+              <div className="hidden md:flex flex-wrap justify-between items-center w-full gap-y-4">
+                {navItems.map((item, index) => (
+                  <div 
+                    key={item.id}
+                    className="cursor-pointer flex items-center gap-2 group py-2"
+                    onMouseEnter={() => setActiveIndex(index % heroImages.length)}
+                    onClick={() => scrollToSection(item.id)}
+                  >
+                    <div className="relative flex items-center justify-center w-5 h-5">
+                      <span className={`absolute inset-0 transition-transform duration-300 ease-out ${activeSection === item.id ? 'scale-100' : 'scale-0 group-hover:scale-100'} ${navTheme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                      <span className={`relative font-light text-lg leading-none transition-all duration-300 ${activeSection === item.id ? 'opacity-100' : 'opacity-60 group-hover:opacity-100'} ${navTheme === 'dark' ? (activeSection === item.id ? 'text-black' : 'group-hover:text-black') : (activeSection === item.id ? 'text-white' : 'group-hover:text-white')}`}>+</span>
+                    </div>
+                    <span className={`text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all duration-300 ${activeSection === item.id ? 'font-bold opacity-100' : 'font-bold opacity-50 group-hover:opacity-100'}`}>
+                      {item.label}
+                    </span>
                   </div>
-                  <span className={`text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all duration-300 ${activeSection === item.id ? 'font-bold opacity-100' : 'font-bold opacity-50 group-hover:opacity-100'}`}>
-                    {item.label}
-                  </span>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              {/* Mobile Nav Toggle */}
+              <div className="flex md:hidden justify-between items-center w-full py-2">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Menu</span>
+                <button 
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="p-2 -mr-2 focus:outline-none"
+                >
+                  <Menu size={24} />
+                </button>
+              </div>
             </nav>
           </div>
 
@@ -859,6 +874,40 @@ export default function App() {
             </div>
           </button>
         </motion.div>
+      </AnimatePresence>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: '-100%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: '-100%' }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-[200] bg-[#083344] text-white flex flex-col px-6 py-8"
+          >
+            <div className="flex justify-between items-center mb-12">
+              <span className="text-sm tracking-widest uppercase font-bold">Menu</span>
+              <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 -mr-2">
+                <X size={24} />
+              </button>
+            </div>
+            <div className="flex flex-col gap-8 flex-1 justify-center">
+              {navItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="text-3xl font-serif uppercase tracking-wider cursor-pointer hover:text-[#00B4D8] transition-colors"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setTimeout(() => scrollToSection(item.id), 500);
+                  }}
+                >
+                  {item.label}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
 
     </div>

@@ -100,10 +100,10 @@ export function ValuesSection() {
 
         {/* Content */}
         <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto flex flex-col items-center mt-32">
-          <h2 className="text-7xl md:text-8xl lg:text-[7rem] font-serif mb-8 tracking-tight">
+          <h2 className="text-5xl md:text-7xl lg:text-[7rem] font-serif mb-6 md:mb-8 tracking-tight">
             Our Values
           </h2>
-          <p className="text-base md:text-lg lg:text-xl font-medium max-w-2xl leading-relaxed">
+          <p className="text-sm md:text-lg lg:text-xl font-medium max-w-2xl leading-relaxed">
             Our foundation rests on three uncompromising pillars: Professionalism, Quality, and Integrity.
           </p>
         </div>
@@ -112,7 +112,7 @@ export function ValuesSection() {
       {/* Blending Section */}
       <section id="what-we-do" className="w-full bg-[#00B4D8] px-6 md:px-12 py-16 md:py-24 text-white" data-theme="dark">
         <div className="max-w-7xl mx-auto">
-          <p className="text-xl md:text-2xl lg:text-3xl font-sans font-light leading-tight max-w-4xl mb-12">
+          <p className="text-lg md:text-2xl lg:text-3xl font-sans font-light leading-tight max-w-4xl mb-10 md:mb-12">
             From transparent communication to flawless execution, we are committed to building absolute trust alongside every legacy home we deliver.
           </p>
           
@@ -123,9 +123,9 @@ export function ValuesSection() {
             }}
             className="group flex items-center border border-white hover:bg-white transition-colors duration-300"
           >
-            <span className="px-10 py-5 text-sm md:text-base tracking-widest uppercase font-medium text-white group-hover:text-[#00B4D8] transition-colors duration-300">WHAT WE DO</span>
-            <span className="p-5 bg-white text-[#00B4D8] border-l border-white">
-              <ArrowDown size={20} />
+            <span className="px-6 py-4 md:px-10 md:py-5 text-xs md:text-sm tracking-widest uppercase font-medium text-white group-hover:text-[#00B4D8] transition-colors duration-300">WHAT WE DO</span>
+            <span className="p-4 md:p-5 bg-white text-[#00B4D8] border-l border-white">
+              <ArrowDown size={20} className="w-4 h-4 md:w-5 md:h-5" />
             </span>
           </button>
         </div>
