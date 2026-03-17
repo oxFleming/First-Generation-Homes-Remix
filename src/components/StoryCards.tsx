@@ -34,10 +34,22 @@ export function StoryCards() {
   useGSAP(() => {
     if (!containerRef.current) return;
 
-    // Initial states (Card 0 is active/center)
-    gsap.set(cardsRef.current[0], { rotation: 0, scale: 1, filter: 'blur(0px)', opacity: 1, zIndex: 30 });
-    gsap.set(cardsRef.current[1], { rotation: 14, scale: 0.9, filter: 'blur(5px)', opacity: 0.8, zIndex: 20 });
-    gsap.set(cardsRef.current[2], { rotation: 28, scale: 0.8, filter: 'blur(10px)', opacity: 0, zIndex: 10 });
+    // Responsive positions based on screen size to prevent overflow
+    const isMobile = window.innerWidth < 768;
+    
+    // The active card is straight and centered in its column
+    const pos0 = { xPercent: 0, yPercent: 0, rotation: 0, scale: 1, opacity: 1, zIndex: 30 };
+    // The next card is cascaded down and to the left
+    const pos1 = { xPercent: isMobile ? -15 : -35, yPercent: isMobile ? 15 : 25, rotation: -12, scale: 0.95, opacity: 1, zIndex: 20 };
+    // The last card is cascaded further down and left
+    const pos2 = { xPercent: isMobile ? -30 : -70, yPercent: isMobile ? 30 : 50, rotation: -24, scale: 0.9, opacity: 1, zIndex: 10 };
+    // The position cards fly to when they are done (up and right)
+    const posOut = { xPercent: 20, yPercent: -40, rotation: 15, scale: 1.05, opacity: 0, zIndex: 40 };
+
+    // Initial states
+    gsap.set(cardsRef.current[0], pos0);
+    gsap.set(cardsRef.current[1], pos1);
+    gsap.set(cardsRef.current[2], pos2);
 
     gsap.set(textsRef.current[0], { opacity: 1, y: 0 });
     gsap.set(textsRef.current[1], { opacity: 0, y: 40 });
@@ -47,73 +59,79 @@ export function StoryCards() {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=300%", // 3 viewport heights for scrolling duration
-        scrub: 1,
+        end: "+=150%", // Reduced from 300% to 150% for much less scroll effort
+        scrub: 1.5, // Increased scrub for a smoother, "glossier" feel
         pin: true,
         snap: {
           snapTo: [0, 0.5, 1], // Snaps perfectly to the resting periods
-          duration: { min: 0.2, max: 0.5 },
-          ease: "power1.inOut"
+          duration: { min: 0.4, max: 0.8 }, // Slightly longer snap duration for glossiness
+          ease: "power3.inOut" // Smoother easing
         }
       }
     });
 
-    // 0 to 0.5: Hold Card 0 in place
-    tl.to({}, { duration: 0.5 });
+    // 0 to 0.2: Hold Card 0 in place briefly
+    tl.to({}, { duration: 0.2 });
 
-    // 0.5 to 1.5: Transition 0 -> 1
-    tl.to(cardsRef.current[0], { rotation: -14, scale: 0.9, filter: 'blur(5px)', opacity: 0.8, zIndex: 20, duration: 1 }, 0.5)
-      .to(cardsRef.current[1], { rotation: 0, scale: 1, filter: 'blur(0px)', opacity: 1, zIndex: 30, duration: 1 }, 0.5)
-      .to(cardsRef.current[2], { rotation: 14, scale: 0.9, filter: 'blur(5px)', opacity: 0.8, zIndex: 20, duration: 1 }, 0.5)
-      .to(textsRef.current[0], { opacity: 0, y: -20, duration: 0.4 }, 0.5)
-      .to(textsRef.current[1], { opacity: 1, y: 0, duration: 0.4 }, 0.9);
+    // 0.2 to 1.2: Transition 0 -> 1
+    tl.to(cardsRef.current[0], { ...posOut, duration: 1 }, 0.2)
+      .to(cardsRef.current[1], { ...pos0, duration: 1 }, 0.2)
+      .to(cardsRef.current[2], { ...pos1, duration: 1 }, 0.2)
+      .to(textsRef.current[0], { opacity: 0, y: -20, duration: 0.4 }, 0.2)
+      .to(textsRef.current[1], { opacity: 1, y: 0, duration: 0.4 }, 0.8);
 
-    // 1.5 to 2.5: Hold Card 1 in place
-    tl.to({}, { duration: 1.0 });
+    // 1.2 to 1.6: Hold Card 1 in place
+    tl.to({}, { duration: 0.4 });
 
-    // 2.5 to 3.5: Transition 1 -> 2
-    tl.to(cardsRef.current[0], { rotation: -28, scale: 0.8, filter: 'blur(10px)', opacity: 0, zIndex: 10, duration: 1 }, 2.5)
-      .to(cardsRef.current[1], { rotation: -14, scale: 0.9, filter: 'blur(5px)', opacity: 0.8, zIndex: 20, duration: 1 }, 2.5)
-      .to(cardsRef.current[2], { rotation: 0, scale: 1, filter: 'blur(0px)', opacity: 1, zIndex: 30, duration: 1 }, 2.5)
-      .to(textsRef.current[1], { opacity: 0, y: -20, duration: 0.4 }, 2.5)
-      .to(textsRef.current[2], { opacity: 1, y: 0, duration: 0.4 }, 2.9);
+    // 1.6 to 2.6: Transition 1 -> 2
+    tl.to(cardsRef.current[0], { opacity: 0, duration: 1 }, 1.6) // Ensure it stays hidden
+      .to(cardsRef.current[1], { ...posOut, duration: 1 }, 1.6)
+      .to(cardsRef.current[2], { ...pos0, duration: 1 }, 1.6)
+      .to(textsRef.current[1], { opacity: 0, y: -20, duration: 0.4 }, 1.6)
+      .to(textsRef.current[2], { opacity: 1, y: 0, duration: 0.4 }, 2.2);
 
-    // 3.5 to 4.0: Hold Card 2 in place
-    tl.to({}, { duration: 0.5 });
+    // 2.6 to 2.8: Hold Card 2 in place briefly
+    tl.to({}, { duration: 0.2 });
 
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="relative w-full h-screen bg-gradient-to-b from-[#e0f2fe] to-[#bae6fd] overflow-hidden flex flex-col items-center justify-center" data-theme="light">
+    <div ref={containerRef} className="relative w-full h-screen bg-gradient-to-b from-[#e0f2fe] to-[#bae6fd] overflow-hidden flex items-center justify-center pt-20 md:pt-0" data-theme="light">
       
-      {/* Cards Container */}
-      <div className="relative w-full max-w-5xl h-[45vh] flex items-center justify-center perspective-1000 z-10">
-        {cardsData.map((card, i) => (
-          <div 
-            key={i}
-            ref={el => cardsRef.current[i] = el}
-            className="absolute w-[54vw] sm:w-[40vw] md:w-[280px] aspect-[3/4] rounded-2xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.2)] border-4 border-white will-change-transform bg-white"
-            style={{ transformOrigin: "50% 150%" }}
-          >
-            <img src={card.image} alt={card.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-            {/* Optional blue tint to match the reference image vibe while keeping the photo */}
-            <div className="absolute inset-0 bg-[#00B4D8]/10 mix-blend-multiply pointer-events-none" />
-          </div>
-        ))}
-      </div>
+      <div className="w-full max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 h-full items-center">
+        
+        {/* Cards Container (Left) */}
+        <div className="relative w-full h-[45vh] md:h-[70vh] flex items-center justify-center md:justify-end z-10">
+          {cardsData.map((card, i) => (
+            <div 
+              key={i}
+              ref={el => cardsRef.current[i] = el}
+              className="absolute w-[55vw] sm:w-[45vw] md:w-[320px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] border-4 border-white will-change-transform bg-white"
+              style={{ transformOrigin: "center center" }}
+            >
+              <img src={card.image} alt={card.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              {/* Optional blue tint to match the reference image vibe while keeping the photo */}
+              <div className="absolute inset-0 bg-[#00B4D8]/10 mix-blend-multiply pointer-events-none" />
+            </div>
+          ))}
+        </div>
 
-      {/* Texts Container */}
-      <div className="relative w-full max-w-2xl h-[20vh] mt-12 flex justify-center z-20">
-        {cardsData.map((card, i) => (
-          <div 
-            key={i}
-            ref={el => textsRef.current[i] = el}
-            className="absolute top-0 left-0 w-full text-center px-6 flex flex-col items-center"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-widest text-[#083344] mb-4">{card.title}</h3>
-            <p className="text-base md:text-lg text-[#083344]/80 font-medium leading-relaxed max-w-md mx-auto">{card.text}</p>
+        {/* Texts Container (Right) */}
+        <div className="relative w-full h-[30vh] md:h-[70vh] flex items-start md:items-center justify-center md:justify-start z-20">
+          <div className="relative w-full max-w-sm h-[150px] md:h-auto">
+            {cardsData.map((card, i) => (
+              <div 
+                key={i}
+                ref={el => textsRef.current[i] = el}
+                className="absolute top-0 left-0 w-full flex flex-col items-center md:items-start text-center md:text-left"
+              >
+                <h3 className="text-xl md:text-2xl font-sans font-bold uppercase tracking-[0.15em] text-[#083344] mb-4 md:mb-6">{card.title}</h3>
+                <p className="text-sm md:text-base text-[#083344]/80 font-sans font-medium leading-[1.8]">{card.text}</p>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
       </div>
     </div>
   );

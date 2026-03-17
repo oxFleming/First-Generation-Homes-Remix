@@ -5,8 +5,9 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Observer } from 'gsap/Observer';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(Observer, MotionPathPlugin);
+gsap.registerPlugin(Observer, MotionPathPlugin, ScrollTrigger);
 
 const genericGallery = [
   'https://images.unsplash.com/photo-1600607687931-cebf66713e28?q=80&w=1200&auto=format&fit=crop',
@@ -206,6 +207,22 @@ export function FeaturedProjects() {
   const polyRef = useRef<SVGPolygonElement>(null);
 
   useGSAP(() => {
+    if (!sectionRef.current) return;
+
+    // Pin the section to create a scroll-jacking effect
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "+=100%", // Pin for 1 viewport height of scrolling
+      pin: true,
+      pinSpacing: true,
+      snap: {
+        snapTo: [0, 1], // Snap to the start or end of the pin
+        duration: { min: 0.2, max: 0.5 },
+        ease: "power1.inOut"
+      }
+    });
+
     if (!imageContainerRef.current) return;
 
     Observer.create({
@@ -244,7 +261,7 @@ export function FeaturedProjects() {
   }, { scope: sectionRef });
 
   return (
-    <div ref={sectionRef} className="bg-white text-[#083344] py-12 lg:py-24 relative overflow-hidden flex items-center">
+    <div ref={sectionRef} className="bg-white text-[#083344] h-screen w-full relative overflow-hidden flex items-center pt-24 pb-8">
       {/* Decorative Path */}
       <div className="absolute top-1/2 left-0 w-full h-64 -translate-y-1/2 pointer-events-none z-0 opacity-20">
         <svg viewBox="0 0 1000 200" preserveAspectRatio="none" className="w-full h-full">
@@ -264,9 +281,9 @@ export function FeaturedProjects() {
         </svg>
       </div>
 
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center justify-center">
         {/* Beige Box */}
-        <div className="bg-[#F8FAFC] border border-[#00B4D8]/20 relative w-full h-auto lg:h-[70vh] min-h-[500px] max-h-none lg:max-h-[700px] mx-auto p-4 lg:p-6 flex flex-col lg:flex-row gap-4 lg:gap-6 shadow-sm rounded-sm">
+        <div className="bg-[#F8FAFC] border border-[#00B4D8]/20 relative w-full h-auto lg:h-full max-h-[800px] lg:max-h-[700px] mx-auto p-4 lg:p-6 flex flex-col lg:flex-row gap-4 lg:gap-6 shadow-sm rounded-sm">
           
           {/* Left: Project Display */}
           <div className="w-full lg:w-[65%] flex flex-col h-full relative">
