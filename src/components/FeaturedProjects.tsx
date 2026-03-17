@@ -216,11 +216,6 @@ export function FeaturedProjects() {
       end: "+=100%", // Pin for 1 viewport height of scrolling
       pin: true,
       pinSpacing: true,
-      snap: {
-        snapTo: [0, 1], // Snap to the start or end of the pin
-        duration: { min: 0.6, max: 1.2 }, // Longer duration for buttery smooth snap
-        ease: "sine.inOut" // Buttery easing
-      }
     });
 
     if (!imageContainerRef.current) return;
@@ -261,7 +256,7 @@ export function FeaturedProjects() {
   }, { scope: sectionRef });
 
   return (
-    <div ref={sectionRef} className="bg-white text-[#083344] min-h-[100svh] w-full relative overflow-hidden flex items-center py-24">
+    <div ref={sectionRef} className="bg-white text-[#083344] min-h-[100svh] w-full relative overflow-hidden flex items-center py-16 lg:py-20">
       {/* Decorative Path */}
       <div className="absolute top-1/2 left-0 w-full h-64 -translate-y-1/2 pointer-events-none z-0 opacity-20">
         <svg viewBox="0 0 1000 200" preserveAspectRatio="none" className="w-full h-full">
@@ -283,14 +278,14 @@ export function FeaturedProjects() {
 
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center justify-center">
         {/* Beige Box */}
-        <div className="bg-[#F8FAFC] border border-[#00B4D8]/20 relative w-full h-auto lg:h-full max-h-[800px] lg:max-h-[700px] mx-auto p-4 lg:p-6 flex flex-col lg:flex-row gap-4 lg:gap-6 shadow-sm rounded-sm">
+        <div className="bg-[#F8FAFC] border border-[#00B4D8]/20 relative w-full h-auto lg:h-full lg:max-h-[850px] lg:min-h-[600px] mx-auto p-4 lg:p-6 flex flex-col lg:flex-row gap-4 lg:gap-6 shadow-sm rounded-sm">
           
           {/* Left: Project Display */}
-          <div className="w-full lg:w-[65%] flex flex-col h-full relative">
+          <div className="w-full lg:w-[65%] flex flex-col h-full relative min-h-0">
             {/* Image Area */}
             <div 
               ref={imageContainerRef}
-              className="w-full h-[250px] md:h-[300px] lg:h-auto lg:flex-1 relative overflow-hidden shadow-xl bg-gray-200 mb-4 lg:mb-6 rounded-sm shrink-0 lg:shrink cursor-grab active:cursor-grabbing"
+              className="w-full h-[250px] md:h-[300px] lg:h-auto lg:flex-1 relative overflow-hidden shadow-xl bg-gray-200 mb-4 lg:mb-6 rounded-sm shrink-0 lg:shrink cursor-grab active:cursor-grabbing min-h-0"
             >
               <AnimatePresence mode="wait">
                 <motion.img 

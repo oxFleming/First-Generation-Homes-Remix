@@ -62,11 +62,6 @@ export function StoryCards() {
         end: "+=150%", // Reduced from 300% to 150% for much less scroll effort
         scrub: 1.2, // Smooth scrub
         pin: true,
-        snap: {
-          snapTo: [0, 0.5, 1], // Snaps perfectly to the resting periods
-          duration: { min: 0.6, max: 1.2 }, // Longer snap duration for buttery glossiness
-          ease: "sine.inOut" // Buttery smooth easing
-        }
       }
     });
 
